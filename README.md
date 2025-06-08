@@ -2,8 +2,8 @@
 
 This repository provides code and example data for traffic-signal optimization
 with reinforcement learning.  Raw bus OD and signal records (sampled from
-`20220810`) are placed under `data/raw/` and are processed into cleaned tables
-using the scripts in `src/`.
+`20220810`) are placed under `data/raw/` and can be processed into cleaned
+tables using the helper modules under `src/tlops_tools`.
 
 ## Repository layout
 
@@ -13,7 +13,6 @@ using the scripts in `src/`.
 │       ├── 90001220220810050000od.csv   # Sample OD table
 │       └── signals/20220810/   # Signal state history
 ├── src/
-│   ├── preprocess.py           # Merges and cleans raw CSV files
 │   └── tlops_tools/            # RL environment and training utilities
 │       └── tools/
 │           ├── Env.py
@@ -29,9 +28,10 @@ using the scripts in `src/`.
    `tensorflow`, `sumolib` and `scikit-learn`.
 
 2. **Preprocess sample data**
-   Run the helper script from the repository root:
+   Run the provided `main.py` script, which dispatches to the utilities in
+   `src/tlops_tools`:
    ```bash
-   python run_preprocess.py
+   python main.py
    ```
    This generates `data/processed/s_preprocessed.csv` and
    `data/processed/od_preprocessed.csv`.
