@@ -11,6 +11,30 @@ from SetWorkingDirectory import make_dirs
 from SetTimePlanToSimulate import SetTimePlanToSimulate
 
 
+def preprocess_signal_data(csv_path: str) -> pd.DataFrame:
+    """Basic cleaning for raw signal records."""
+    df = pd.read_csv(csv_path)
+    if "aringstarttime" in df.columns:
+        df["aringstarttime"] = pd.to_datetime(df["aringstarttime"])
+    if "unix_time" in df.columns:
+        df["unix_time"] = df["unix_time"].astype(int)
+    df = df.drop_duplicates()
+    sort_cols = [c for c in ["interid", "unix_time"] if c in df.columns]
+    if sort_cols:
+        df = df.sort_values(sort_cols).reset_index(drop=True)
+    return df
+
+
+def preprocess_demand_data(csv_path: str, analysis_start: str) -> pd.DataFrame:
+    """Basic cleaning for bus OD records."""
+    df = pd.read_csv(csv_path)
+    if "unix_time" in df.columns:
+        start_ts = int(pd.Timestamp(analysis_start).timestamp())
+        df = df[df["unix_time"] >= start_ts]
+    df = df.drop_duplicates().reset_index(drop=True)
+    return df
+
+
 def load_sub_areas():
 
     # node 정보 불러오기
