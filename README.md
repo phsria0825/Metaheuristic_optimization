@@ -1,9 +1,12 @@
 # Metaheuristic Optimization
 
-This repository provides code and example data for traffic-signal optimization
+This repository provides code and sample data for traffic-signal optimization
 with reinforcement learning.  Raw bus OD and signal records (sampled from
-`20220810`) are placed under `data/raw/` and can be processed into cleaned
-tables using the helper modules under `src/tlops_tools`.
+`20220810`) are placed under `data/raw/`.
+
+Preprocessing helpers referenced in the code base are incomplete.  The
+included utilities primarily generate scenario folders and time-plan tables
+for reinforcement learning experiments.
 
 ## Repository layout
 
@@ -27,14 +30,15 @@ tables using the helper modules under `src/tlops_tools`.
    Install Python 3.8 with dependencies such as `pandas`, `numpy`,
    `tensorflow`, `sumolib` and `scikit-learn`.
 
-2. **Preprocess sample data**
-   Run the provided `main.py` script, which dispatches to the utilities in
-   `src/tlops_tools`:
+2. **Initialize the scenario**
+   Run the provided `main.py` script.  This script adds
+   `src/tlops_tools/tools` to the path and invokes the preprocessing module to
+   create the `outputs/` directory and a `time_plan_with_begin_sec.pkl` file:
    ```bash
    python main.py
    ```
-   This generates `data/processed/s_preprocessed.csv` and
-   `data/processed/od_preprocessed.csv`.
+   Data-cleaning helpers mentioned in the code (`preprocess_signal_data`,
+   `preprocess_demand_data`) are not included in this repository.
 
 3. **Train or test RL agents**
    Training and evaluation utilities are found under `src/tlops_tools/tools/`.
