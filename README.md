@@ -29,8 +29,9 @@ using the scripts in `src/`.
    `tensorflow`, `sumolib` and `scikit-learn`.
 
 2. **Preprocess sample data**
+   Run the helper script from the repository root:
    ```bash
-   python src/preprocess.py
+   python run_preprocess.py
    ```
    This generates `data/processed/s_preprocessed.csv` and
    `data/processed/od_preprocessed.csv`.
